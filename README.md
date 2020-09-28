@@ -12,8 +12,14 @@ Requirements:
 
 # Running model for Task3 and Task2
 
+
 1. **Preprocess** the datasets to reformat the data for GPT-2 input.
 
+You should run the Task1 prepocessing before you start. 
+```
+$ ./simmc/mm_action_prediction/scripts/preprocess_simmc.sh
+```
+Preprocess for task3
 ```
 $ cd mm_dst
 $ ./run_preprocess_gpt2.sh
