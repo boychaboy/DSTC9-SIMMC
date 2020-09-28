@@ -1,8 +1,8 @@
 # Situated Interactive MultiModal Conversations (SIMMC) Challenge 2020
 
-# Multi-task model with Finetuning End-to-End GPT-2
+## Multi-task model with Finetuning End-to-End GPT-2
 
-# This model can do all Task1, Task2, and Task3. 
+**This model can do all Task1, Task2, and Task3**
 
 Requirements:
 
@@ -56,7 +56,14 @@ $ simmc/mm_dst/results/fashion/ensemble/
 
 # Running model for Task1
 
-1. **Preprocess ** the datasets for task1 is already in the data file
+1. **Preprocess** 
+You should run the Task1 prepocess before you start. 
+
+```
+$ ./simmc/mm_action_prediction/scripts/preprocess_simmc.sh
+```
+
+The data for task1 is provided in the data file
 
 2. **Train** the baseline model
 
