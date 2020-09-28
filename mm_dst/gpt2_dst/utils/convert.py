@@ -31,17 +31,12 @@ TEMPLATE_TARGET = '{context} {START_BELIEF_STATE} {belief_state} ' \
     '{END_OF_BELIEF} {response} {END_OF_SENTENCE}'
 TEMPLATE_TARGET_TASK1 = '{context} {START_BELIEF_STATE} {belief_state} ' \
     '{END_OF_BELIEF} {response} {END_OF_RESPONSE} {api} {END_OF_SENTENCE}'
-TEMPLATE_TARGET_NORESP = '{context} {START_BELIEF_STATE} {belief_state} {END_OF_SENTENCE}'
-
 
 def convert_json_to_flattened(
         input_path_json,
         output_path_predict,
         output_path_target,
         len_context=2,
-        noresp=False,
-        attribute=False,
-        slot=False,
         task1=False,
         domain=None,
         use_multimodal_contexts=True,
@@ -53,6 +48,9 @@ def convert_json_to_flattened(
         Input: JSON representation of the dialogs
         Output: line-by-line stringified representation of each turn
     """
+    with open(input_path_json, 'r') as f_in:
+        data = json.load(f_in)['dialogue_data']
+    
     if task1:
         with open(api_path_json, 'r') as f_in:
             api_calls = json.load(f_in)
@@ -63,9 +61,9 @@ def convert_json_to_flattened(
         attr_list = []
         for key in attribute_vocab.keys():
             attr_list.append(key)
-
-    with open(input_path_json, 'r') as f_in:
-        data = json.load(f_in)['dialogue_data']
+    else:
+        # B: make a dummy data
+        api_calls = data
 
     predicts = []
     targets = []
@@ -142,65 +140,17 @@ def convert_json_to_flattened(
             # Format belief state
             belief_state = []
             for bs_per_frame in user_belief:
-                if attribute:
-                    if '.' in bs_per_frame['act']:
-                        str_act = bs_per_frame['act'].split('.')
-                        # B : lowercase + parse
-                        attribute = ''
-                        for c in str_act[1]:
-                            if c.isupper():
-                                attribute += ' ' + c.lower()
-                            else:
-                                attribute += c
-
-                        str_act = str_act[0] + ' ' + attribute
-                    else:
-                        str_act = bs_per_frame['act']
-
-                    if slot :
-                        slot_list = list()
-                        for kv in bs_per_frame['slots']:
-                            sp = kv[0].strip().split("-")
-                            sp0 = sp[0]
-                            sp1 = ""
-                            for c in sp[1]:
-                                if c.isupper():
-                                    sp1 += ' ' + c.lower()
-                                else:
-                                    sp1 += c
-                            slot_list.append(f'{sp0} {sp1} = {kv[1].strip()}')
-
-                        str_belief_state_per_frame = "{act} [ {slot_values} ]".format(
-                            act=str_act,
-                            slot_values=', '.join(slot_list)
-                        ) 
-
-                    else : 
-                        str_belief_state_per_frame = "{act} [ {slot_values} ]".format(
-                            act=str_act,
-                            slot_values=', '.join(
-                                [f'{kv[0].strip()} = {kv[1].strip()}'
-                                    for kv in bs_per_frame['slots']])
-                        ) 
-                else:
-                    str_belief_state_per_frame = "{act} [ {slot_values} ]".format(
-                        act=bs_per_frame['act'].strip(),
-                        slot_values=', '.join(
-                            [f'{kv[0].strip()} = {kv[1].strip()}'
-                                for kv in bs_per_frame['slots']])
-                    )
+                str_belief_state_per_frame = "{act} [ {slot_values} ]".format(
+                    act=bs_per_frame['act'].strip(),
+                    slot_values=', '.join(
+                        [f'{kv[0].strip()} = {kv[1].strip()}'
+                            for kv in bs_per_frame['slots']])
+                )
                 belief_state.append(str_belief_state_per_frame)
 
                 # Track OOVs
                 if output_path_special_tokens != '':
-                    if attribute:
-                        if '.' in bs_per_frame['act']:
-                            sp = bs_per_frame['act'].split('.')
-                            oov.add(sp[0])
-                            oov.add(sp[1])
-
-                    else:
-                        oov.add(bs_per_frame['act'])
+                    oov.add(bs_per_frame['act'])
                     for kv in bs_per_frame['slots']:
                         slot_name = kv[0]
                         oov.add(slot_name)
@@ -218,14 +168,7 @@ def convert_json_to_flattened(
             predicts.append(predict)
 
             # Format the main output
-            if noresp : 
-                target = TEMPLATE_TARGET_NORESP.format(
-                    context=context,
-                    START_BELIEF_STATE=START_BELIEF_STATE,
-                    belief_state=str_belief_state,
-                    END_OF_SENTENCE=END_OF_SENTENCE
-                )
-            elif task1 :
+            if task1 :
                 # B : preprocess for task1 
                 # if api[i] != None:
                 if domain == 'furniture':
@@ -270,7 +213,6 @@ def convert_json_to_flattened(
                                 [f'{attr}'
                                     for attr in action_supervision['action_supervision']['attributes']])
                         )
-                    
 
                 target = TEMPLATE_TARGET_TASK1.format(
                     context=context,

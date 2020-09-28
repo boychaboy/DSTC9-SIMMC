@@ -203,11 +203,7 @@ command line"""
     parser.add_argument("--no_repeat_ngram_size", type=int, default=0, help="N-gram not to repeat")
     parser.add_argument("--num_gen", type=int, default=100000, help="Number of sentences to generate")
     parser.add_argument("--token", type=int, default=0, help="Whether to start first token with special token only")
-    parser.add_argument("--gpu_id", type=str, default='0')
     args = parser.parse_args()
-
-    os.environ["CUDA_DEVICE_ORDER"]="PCI_BUS_ID"
-    os.environ["CUDA_VISIBLE_DEVICES"]=args.gpu_id
 
     args.device = torch.device("cuda" if torch.cuda.is_available() and not args.no_cuda else "cpu")
     args.n_gpu = 0 if args.no_cuda else torch.cuda.device_count()
