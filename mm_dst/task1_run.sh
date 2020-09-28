@@ -40,7 +40,7 @@ python -m gpt2_dst.scripts.run_language_modeling \
     --gpu_id=$GPU_ID \
     --per_gpu_train_batch_size=$BATCH \
     --per_gpu_eval_batch_size=$VAL_BATCH \
-    --warmup_steps=$WARMUP \
+    --warmup_steps=$/WARMUP \
     --logging_steps=0 \
     --save_steps=0 \
     --fp16 

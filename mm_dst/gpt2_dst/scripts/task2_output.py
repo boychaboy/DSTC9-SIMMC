@@ -140,4 +140,4 @@ if __name__ == "__main__":
     predicted_processed_generation.close()
     predicted_processed_retrieval.close()
     predicted.close()
-    print("Done converting {} total dialog to task 1 output format for".format(i,domain))
+    print("Done converting {} total dialog to task 2 output format for".format(i,domain))
