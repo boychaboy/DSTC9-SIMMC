@@ -1,8 +1,9 @@
 #!/bin/bash
 
-TEST_DATA=devtest		# {devtest|test}
+TEST_DATA=test		# {devtest|test}
 PATH_DIR=$(realpath .)
-
+PATH_DATA_DIR=$(realpath ..)
+#echo "${PATH_DATA_DIR}"
 if [[ $# -eq 1 ]]
 then
 	KEYWORD=$1
@@ -15,34 +16,33 @@ fi
 
 # Furniture
 # Multimodal Data
-python -m gpt2_dst.utils.postprocess_output \
+python -m gpt2_dst.scripts.postprocess_output \
     --path="${PATH_DIR}"/gpt2_dst/results/furniture/"${KEYWORD}"/ \
-    --domain=furniture
-
-mv "${PATH_DIR}"/gpt2_dst/results/furniture/"${KEYWORD}"/furniture_"${TEST_DATA}"_dials_predicted.txt "${PATH_DIR}"/gpt2_dst/results/furniture/"${KEYWORD}"/furniture_"${TEST_DATA}"_dials_predicted.org
-mv "${PATH_DIR}"/gpt2_dst/results/furniture/"${KEYWORD}"/furniture_"${TEST_DATA}"_dials_predicted_processed.txt "${PATH_DIR}"/gpt2_dst/results/furniture/"${KEYWORD}"/furniture_"${TEST_DATA}"_dials_predicted.txt
-
+    --domain=furniture \
+    --data="${TEST_DATA}"
 
 # Fashion
 # Multimodal Data
-python -m gpt2_dst.utils.postprocess_output \
+python -m gpt2_dst.scripts.postprocess_output \
     --path="${PATH_DIR}"/gpt2_dst/results/fashion/"${KEYWORD}"/ \
-    --domain=fashion
+    --domain=fashion \
+    --data="${TEST_DATA}"
 
-mv "${PATH_DIR}"/gpt2_dst/results/fashion/"${KEYWORD}"/fashion_"${TEST_DATA}"_dials_predicted.txt "${PATH_DIR}"/gpt2_dst/results/fashion/"${KEYWORD}"/fashion_"${TEST_DATA}"_dials_predicted.org
-mv "${PATH_DIR}"/gpt2_dst/results/fashion/"${KEYWORD}"/fashion_"${TEST_DATA}"_dials_predicted_processed.txt "${PATH_DIR}"/gpt2_dst/results/fashion/"${KEYWORD}"/fashion_"${TEST_DATA}"_dials_predicted.txt
+cp "${PATH_DIR}"/gpt2_dst/results/furniture/"${KEYWORD}"/furniture_"${TEST_DATA}"_belief_state.json "${PATH_DATA_DIR}"/data/simmc_furniture/furniture_"${TEST_DATA}"_belief_state.json
 
+cp "${PATH_DIR}"/gpt2_dst/results/fashion/"${KEYWORD}"/fashion_"${TEST_DATA}"_belief_state.json "${PATH_DATA_DIR}"/data/simmc_fashion/fahsion_"${TEST_DATA}"_belief_state.json
 
 # Step 2 : Generate output for Task2 evaluation
-
-# Furniture
-python -m gpt2_dst.utils.task2_output \
+python -m gpt2_dst.scripts.task2_output \
     --path="${PATH_DIR}"/gpt2_dst/results/furniture/"${KEYWORD}"/ \
-    --domain=furniture
-
+    --domain=furniture \
+    --dials_path="${PATH_DATA_DIR}"/data/simmc_furniture/furniture_devtest_dials.json \
+    --retrieval_candidate_path="${PATH_DATA_DIR}"/data/simmc_furniture/furniture_devtest_dials_retrieval_candidates.json
 # Fashion
-python -m gpt2_dst.utils.task2_output \
+python -m gpt2_dst.scripts.task2_output \
     --path="${PATH_DIR}"/gpt2_dst/results/fashion/"${KEYWORD}"/ \
-    --domain=fashion
+    --domain=fashion \
+    --dials_path="${PATH_DATA_DIR}"/data/simmc_fashion/fashion_devtest_dials.json \
+    --retrieval_candidate_path="${PATH_DATA_DIR}"/data/simmc_fashion/fashion_devtest_dials_retrieval_candidates.json
 
 

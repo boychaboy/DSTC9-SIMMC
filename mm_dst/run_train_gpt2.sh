@@ -57,7 +57,6 @@ python -m gpt2_dst.scripts.run_language_modeling \
     --overwrite_output_dir \
     --learning_rate=$LR \
     --warmup_steps=$WARMUP \
-    --mul_gpu=$MUL_GPU \
     --gpu_id=$GPU_ID \
     --per_gpu_train_batch_size=$TRAIN_BATCH \
     --per_gpu_eval_batch_size=$VAL_BATCH

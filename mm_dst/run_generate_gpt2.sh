@@ -1,7 +1,7 @@
-#!/bin/
+#!/bin/bash
 
 TEST_DATA=devtest		# {devtest|test}
-PATH_DIR=$(realpath .)bash
+PATH_DIR=$(realpath .)
 
 if [[ $# -eq 2 ]]
 then
@@ -12,6 +12,8 @@ else
 	exit 1
 fi
 
+# IMPORTANT : install normal transformers version 2.8.0
+
 # Furniture
 # Multimodal Data
 CUDA_VISIBLE_DEVICES=$GPU_ID python -m gpt2_dst.scripts.run_generation \
@@ -21,6 +23,7 @@ CUDA_VISIBLE_DEVICES=$GPU_ID python -m gpt2_dst.scripts.run_generation \
     --length=100 \
     --stop_token="<EOS>" \
     --num_beams=2 \
+    --num_gen=10 \
     --prompts_from_file="${PATH_DIR}"/gpt2_dst/data/furniture/furniture_"${TEST_DATA}"_dials_predict.txt \
     --path_output="${PATH_DIR}"/gpt2_dst/results/furniture/"${KEYWORD}"/furniture_"${TEST_DATA}"_dials_predicted.txt
 
@@ -33,8 +36,6 @@ CUDA_VISIBLE_DEVICES=$GPU_ID python -m gpt2_dst.scripts.run_generation \
     --length=100 \
     --stop_token="<EOS>" \
     --num_beams=2 \
+    --num_gen=10 \
     --prompts_from_file="${PATH_DIR}"/gpt2_dst/data/fashion/fashion_"${TEST_DATA}"_dials_predict.txt \
     --path_output="${PATH_DIR}"/gpt2_dst/results/fashion/"${KEYWORD}"/fashion_"${TEST_DATA}"_dials_predicted.txt
-
-
-
