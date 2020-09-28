@@ -91,9 +91,10 @@ if __name__ == "__main__":
     parser.add_argument('--domain', type=str, required=True)
     parser.add_argument('--dials_path',type=str,required=True)
     parser.add_argument('--retrieval_candidate_path', required=True)
-
+    parser.add_argument('--data',type=str,required=True)
     args = parser.parse_args()
-    predicted = open(args.path + args.domain+ '_devtest_dials_predicted.txt', 'r')
+
+    predicted = open(args.path + args.domain+ '_' + args.data + '_dials_predicted.txt', 'r')
     predicted.seek(0)
     predicted_processed_generation = open(args.path + "dstc9-simmc-teststd-" + args.domain + "-subtask-2-generation.json", 'w')
     predicted_processed_retrieval = open(args.path + "dstc9-simmc-teststd-" + args.domain + "-subtask-2-retrieval.json", 'w')

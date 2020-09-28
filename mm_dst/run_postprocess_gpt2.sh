@@ -28,11 +28,13 @@ cp "${PATH_DIR}"/gpt2_dst/results/fashion/ensemble/fashion_"${TEST_DATA}"_belief
 python -m gpt2_dst.scripts.task2_output \
     --path="${PATH_DIR}"/gpt2_dst/results/furniture/ensemble/ \
     --domain=furniture \
+    --data="${TEST_DATA}" \
     --dials_path="${PATH_DATA_DIR}"/data/simmc_furniture/furniture_"${TEST_DATA}"_dials.json \
     --retrieval_candidate_path="${PATH_DATA_DIR}"/data/simmc_furniture/furniture_"${TEST_DATA}"_dials_retrieval_candidates.json
 # Fashion
 python -m gpt2_dst.scripts.task2_output \
     --path="${PATH_DIR}"/gpt2_dst/results/fashion/ensemble/ \
     --domain=fashion \
+    --data="${TEST_DATA}" \
     --dials_path="${PATH_DATA_DIR}"/data/simmc_fashion/fashion_"${TEST_DATA}"_dials.json \
     --retrieval_candidate_path="${PATH_DATA_DIR}"/data/simmc_fashion/fashion_"${TEST_DATA}"_dials_retrieval_candidates.json
