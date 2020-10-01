@@ -88,7 +88,15 @@ for line in token_list:
     elif '-' in token:
         sp = token.split('-')
         new = ""
-        if sp[1][0].isupper(): # if not a camelCased token (eg: NEG)
+        if sp[1] == 'NEG':
+            new = 'negative'
+        elif sp[1] == 'SITUATION_1':
+            new = 'situation 1'
+        elif sp[1] == 'O':
+            new = 'o'
+        elif sp[1] == 'DISPLAY_1':
+            new = 'DISPLAY_1'
+        elif sp[1][0].isupper(): # if not a camelCased token (eg: NEG)
             new = sp[1]
         else:
             if '_' in sp[1]:

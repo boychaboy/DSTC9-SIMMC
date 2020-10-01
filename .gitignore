@@ -2,7 +2,8 @@
 *.bin
 mm_dst/runs/
 mm_dst/gpt2_dst/save/
-data/
+data/simmc_furniture/
+data/simmc_fashion/
 
 # Byte-compiled / optimized / DLL files
 __pycache__/

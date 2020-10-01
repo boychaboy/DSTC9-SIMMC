@@ -21,9 +21,16 @@ def convertToTask1_fashion(lines, dialogue_id) :
     turn_id = 0 
     prediction = {
         "turn_id" : turn_id,
-        "action" : None,
+        "action" : 'None',
         "attributes": {
                 "attributes" : []
+        },
+         "action_log_prob" : {
+            "SearchDatabase" : 0,
+            "SearchMemory" : 0,
+            "SpecifyInfo" : 0,
+            "AddToCart" : 0,
+            "None" : 0
         }
     }
     for line in lines : 
@@ -38,9 +45,16 @@ def convertToTask1_fashion(lines, dialogue_id) :
 def convertTurn_fashion(toParse,turn_id):
     prediction = {
         "turn_id" : turn_id,
-        "action" : None,
+        "action" : 'None',
         "attributes": {
             "attributes" : []
+        },
+        "action_log_prob" : {
+            "SearchDatabase" : 0,
+            "SearchMemory" : 0,
+            "SpecifyInfo" : 0,
+            "AddToCart" : 0,
+            "None" : 0
         }
     }
     if not toParse :
@@ -74,11 +88,20 @@ def convertToTask1_furniture(lines, dialogue_id) :
         ]
     }
     prediction = {
-        "action" : None,
+        "action" : 'None',
         "attributes": {
                         
         },
-        "turn_id" : 0
+        "turn_id" : 0,
+         "action_log_prob" : {
+            "SearchFurniture" : 0,
+            "FocusOnFurniture" : 0,
+            "SpecifyInfo" : 0,
+            "Rotate" : 0,
+            "NavigateCarousel" : 0,
+            "AddToCart" : 0,
+            "None" : 0
+        }
     }
 
     turn_id = 0 
@@ -92,11 +115,20 @@ def convertToTask1_furniture(lines, dialogue_id) :
 
 def convertTurn_furniture(toParse,turn_id):
     prediction = {
-        "action" : None,
+        "action" : 'None',
         "attributes": {
                         
         },
-        "turn_id": turn_id
+        "turn_id": turn_id,
+        "action_log_prob" : {
+            "SearchFurniture" : 0,
+            "FocusOnFurniture" : 0,
+            "SpecifyInfo" : 0,
+            "Rotate" : 0,
+            "NavigateCarousel" : 0,
+            "AddToCart" : 0,
+            "None" : 0
+        }
     }
     
     if not toParse :
@@ -164,6 +196,7 @@ if __name__ == '__main__':
             result.append(convertToTask1_fashion(lines,dialog_id))
         i+=1
     
+      
     final_json = {}
     with open(output_path, "w") as json_file:
         json.dump(result, json_file)

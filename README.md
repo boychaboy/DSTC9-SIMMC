@@ -12,18 +12,20 @@ Requirements:
 
 # Running model for Task3 and Task2
 
-
 1. **Preprocess** the datasets to reformat the data for GPT-2 input.
 
 You should run the Task1 prepocessing before you start. 
 ```
-$ ./simmc/mm_action_prediction/scripts/preprocess_simmc.sh
+$ cd mm_action_prediction/
+$ ./scripts/preprocess_simmc.sh
 ```
+
 Preprocess for task3
 ```
-$ cd mm_dst
+$ cd ../mm_dst
 $ ./run_preprocess_gpt2.sh
 ```
+
 2. **Train** the baseline model
 
 ```
@@ -41,7 +43,7 @@ pip uninstall transformers
 pip install transformers -t transformers
 mv transformers transformers_package
 mv transformers_package/transformers transformers
-cp modeling_utils.py
+cp modeling_utils.py transformers/
 ```
 And add model [KEYWORDS] to generate in the following shell script 
 ```
@@ -67,10 +69,15 @@ $ simmc/mm_dst/results/fashion/ensemble/
 You should run the Task1 prepocess before you start. 
 
 ```
-$ ./simmc/mm_action_prediction/scripts/preprocess_simmc.sh
+$ cd ../mm_action_prediction
+$ ./scripts/preprocess_simmc.sh
 ```
 
-The data for task1 is provided in the data file
+The data for task1 is provided in the data file, but if you need to run from scratch, run below
+
+```
+$ ./run_preprocess_api.sh
+```
 
 2. **Train** the baseline model
 
@@ -87,7 +94,7 @@ pip uninstall transformers
 pip install transformers -t transformers
 mv transformers transformers_package
 mv transformers_package/transformers transformers
-cp modeling_utils.py
+cp modeling_utils.py transformers/
 
 $ ./run_generate_using_ensemble_task1.sh [GPU_ID]
 ```

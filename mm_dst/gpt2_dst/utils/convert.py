@@ -79,15 +79,40 @@ def convert_json_to_flattened(
         }
         if use_multimodal_contexts:
             if task1:
-                special_tokens = {
-                    "eos_token": END_OF_SENTENCE,
-                    "additional_special_tokens": [
-                        END_OF_BELIEF,
-                        START_OF_MULTIMODAL_CONTEXTS,
-                        END_OF_MULTIMODAL_CONTEXTS,
-                        END_OF_RESPONSE
-                    ]
-                }
+                # Additional special token for furniture
+                if domain=='furniture':
+                    special_tokens = {
+                        "eos_token": END_OF_SENTENCE,
+                        "additional_special_tokens": [
+                            END_OF_BELIEF,
+                            START_OF_MULTIMODAL_CONTEXTS,
+                            END_OF_MULTIMODAL_CONTEXTS,
+                            END_OF_RESPONSE,
+                            "SearchFurniture",
+                            "SpecifyInfo",
+                            "FocusOnFurniture",
+                            "Rotate",
+                            "NavigateCarousel",
+                            "AddToCart",
+                            "None"
+                        ]
+                    }
+                else:
+                    # Additional special token for fashion
+                    special_tokens = {
+                        "eos_token": END_OF_SENTENCE,
+                        "additional_special_tokens": [
+                            END_OF_BELIEF,
+                            START_OF_MULTIMODAL_CONTEXTS,
+                            END_OF_MULTIMODAL_CONTEXTS,
+                            END_OF_RESPONSE,
+                            "SearchMemory",
+                            "SearchDatabase",
+                            "SpecifyInfo",
+                            "AddToCart",
+                            "None"
+                        ]
+                    }
             else:
                 special_tokens = {
                     "eos_token": END_OF_SENTENCE,
@@ -110,7 +135,8 @@ def convert_json_to_flattened(
                 for val in attribute_vocab[key]:
                     sp = val.split(' ')
                     for v in sp:
-                        oov.add(v)
+                        if len(v) > 0:
+                            oov.add(v)
     
     for dialog, api_call in zip(data, api_calls):
 
