@@ -90,7 +90,6 @@ def convertToTask1_furniture(lines, dialogue_id) :
     prediction = {
         "action" : 'None',
         "attributes": {
-                        
         },
         "turn_id" : 0,
          "action_log_prob" : {
@@ -116,8 +115,7 @@ def convertToTask1_furniture(lines, dialogue_id) :
 def convertTurn_furniture(toParse,turn_id):
     prediction = {
         "action" : 'None',
-        "attributes": {
-                        
+        "attributes": { 
         },
         "turn_id": turn_id,
         "action_log_prob" : {
@@ -133,7 +131,19 @@ def convertTurn_furniture(toParse,turn_id):
     
     if not toParse :
             return prediction
-    action = toParse.split("[")[0].strip()
+    action = toParse.split("[")[0].strip() 
+    if action == "SearchFurniture" :      ## add attribute key values for each action 
+        prediction["attributes"]["furnitureType"] = 'None'
+        prediction["attributes"]["color"] = 'None'
+    elif action == "FocusOnFurniture" : 
+        prediction["attributes"]["position"] = 'None'
+    elif action == "SpecifyInfo" :
+        prediction["attributes"]["matches"] = 'None'
+        prediction["attributes"]["attributes"] ='None'
+    elif action == "Rotate" :
+        prediction["attributes"]["direction"] = 'None'
+    elif action == "NavigateCarousel" :
+        prediction["attributes"]["navigate_direction"] = 'None'
     if len(toParse.split("[")) < 1 : 
         return prediction 
     prediction["action"] = action 
@@ -148,10 +158,7 @@ def convertTurn_furniture(toParse,turn_id):
             if len(attribute.split("=")) == 2 : 
                 value = attribute.split("=")[1].strip()
                 prediction["attributes"][name] = value 
-            else :
-                prediction["attributes"] = {} 
-
-            
+             
     return prediction
 
 if __name__ == '__main__':
@@ -160,7 +167,7 @@ if __name__ == '__main__':
     parser.add_argument('--input_predicted_file', type=str, 
                         help='path for predicted results from task 3(.txt)') 
     parser.add_argument('--input_predict_json',  
-                        help='path for predicted json') 
+                        help='path for predict json') 
     parser.add_argument('--output_path',
                         help='output file path for converted results (.json')
     parser.add_argument('--domain',

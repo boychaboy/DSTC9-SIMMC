@@ -12,7 +12,7 @@ data = args.data
 
 predicted = open(args.path + domain + '_' + data + '_dials_predicted.txt', 'r')
 
-predicted_processed = open(args.path + "dstc9-simmc-" + data + 'std-' + domain + "-subtask-3.txt", 'w')
+predicted_processed = open(args.path + "dstc9-simmc-" + data + '-' + domain + "-subtask-3.txt", 'w')
 
 
 act_path = open(f"gpt2_dst/data/{domain}/act.json", 'r')
@@ -73,7 +73,7 @@ predicted.close()
 domain = args.domain
 data = args.data
 
-source = open(args.path + "dstc9-simmc-" + data + 'std-' + domain + "-subtask-3.txt", 'r')
+source = open(args.path + "dstc9-simmc-" + data + '-' + domain + "-subtask-3.txt", 'r')
 belief_state_path = open(args.path + domain + '_' + data + '_belief_state.json', 'w')
 
 def make_input_for_task1(reader, writer):

@@ -48,8 +48,8 @@ python -m gpt2_dst.scripts.preprocess_input \
 # Test split
 python -m gpt2_dst.scripts.preprocess_input \
     --input_path_json="${PATH_DATA_DIR}"/simmc_furniture/furniture_teststd_dials_public.json \
-    --output_path_predict="${PATH_DIR}"/gpt2_dst/data/furniture/furniture_test_dials_predict.txt \
-    --output_path_target="${PATH_DIR}"/gpt2_dst/data/furniture/furniture_test_dials_target.txt \
+    --output_path_predict="${PATH_DIR}"/gpt2_dst/data/furniture/furniture_teststd_dials_predict.txt \
+    --output_path_target="${PATH_DIR}"/gpt2_dst/data/furniture/furniture_teststd_dials_target.txt \
     --len_context=2 \
     --use_multimodal_contexts=1 \
     --input_path_special_tokens="${PATH_DIR}"/gpt2_dst/data/furniture/special_tokens.json \
@@ -87,8 +87,8 @@ python -m gpt2_dst.scripts.preprocess_input \
 # Test split
 python -m gpt2_dst.scripts.preprocess_input \
     --input_path_json="${PATH_DATA_DIR}"/simmc_fashion/fashion_teststd_dials_public.json \
-    --output_path_predict="${PATH_DIR}"/gpt2_dst/data/fashion/fashion_test_dials_predict.txt \
-    --output_path_target="${PATH_DIR}"/gpt2_dst/data/fashion/fashion_test_dials_target.txt \
+    --output_path_predict="${PATH_DIR}"/gpt2_dst/data/fashion/fashion_teststd_dials_predict.txt \
+    --output_path_target="${PATH_DIR}"/gpt2_dst/data/fashion/fashion_teststd_dials_target.txt \
     --len_context=2 \
     --use_multimodal_contexts=1 \
     --input_path_special_tokens="${PATH_DIR}"/gpt2_dst/data/fashion/special_tokens.json \

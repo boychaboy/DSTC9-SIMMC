@@ -3,7 +3,7 @@ PATH_DIR=$(realpath .)
 
 # HYPER-PARAMETERS 
 
-TEST_DATA=test 	# {devtest|test}
+TEST_DATA=teststd 	# {devtest|teststd}
 
 if [[ $# -eq 1 ]]
 then

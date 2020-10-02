@@ -3,7 +3,7 @@ PATH_DIR=$(realpath .)
 
 # HYPER-PARAMETERS 
 
-TEST_DATA=test 	# {devtest|test}
+TEST_DATA=teststd 	# {devtest|teststd}
 
 if [[ $# -eq 1 ]]
 then
@@ -17,7 +17,7 @@ fi
 # Multimodal Data
 CUDA_VISIBLE_DEVICES=$GPU_ID python -m gpt2_dst.scripts.run_generation_en \
     --model_type=gpt2 \
-    --model_name_or_path_list "${PATH_DIR}"/gpt2_dst/save/task1/furniture/td_large "${PATH_DIR}"/gpt2_dst/save/task1/furniture/large \
+    --model_name_or_path_list "${PATH_DIR}"/gpt2_dst/save/task1/furniture/td_medium "${PATH_DIR}"/gpt2_dst/save/task1/furniture/td_small \
     --num_return_sequences=1 \
     --length=100 \
     --stop_token="<EOS>" \
@@ -29,7 +29,7 @@ CUDA_VISIBLE_DEVICES=$GPU_ID python -m gpt2_dst.scripts.run_generation_en \
 # Multimodal Data
 CUDA_VISIBLE_DEVICES=$GPU_ID python -m gpt2_dst.scripts.run_generation_en \
     --model_type=gpt2 \
-    --model_name_or_path "${PATH_DIR}"/gpt2_dst/save/task1/fashion/td_large "${PATH_DIR}"/gpt2_dst/save/fashion/td_small \
+    --model_name_or_path "${PATH_DIR}"/gpt2_dst/save/task1/fashion/td_medium "${PATH_DIR}"/gpt2_dst/save/fashion/td_small \
     --num_return_sequences=1 \
     --length=100 \
     --stop_token="<EOS>" \

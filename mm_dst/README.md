@@ -1,151 +1,160 @@
-# DSTC Track 4: SIMMC | Sub-Task #3: Multimodal Dialog State Tracking (MM-DST)
+# Situated Interactive MultiModal Conversations (SIMMC) Challenge 2020
 
-This directory contains the code and the scripts for running the baseline models for Sub-Task #3: Multimodal DST.
+## Multi-task model with Finetuning End-to-End GPT-2
 
-The Multimodal Dialog State Tracking (MM-DST) task involves systematically tracking the attributes of dialog act labels cumulative across multiple turns.
-Multimodal belief states at each turn should encode sufficient information for handling user utterances in the downstream dialog components (e.g. Dialog Policy).
+**This model can do all Task1, Task2, and Task3**
 
-Please check the [task input](./TASK_INPUTS.md) file for a full description of inputs
-for each subtask.
+Requirements:
 
-For more details on the task definition and the baseline models we provide, please refer to our SIMMC paper:
-```
-@article{moon2020situated,
-  title={Situated and Interactive Multimodal Conversations},
-  author={Moon, Seungwhan and Kottur, Satwik and Crook, Paul A and De, Ankita and Poddar, Shivani and Levin, Theodore and Whitney, David and Difranco, Daniel and Beirami, Ahmad and Cho, Eunjoon and Subba, Rajen and Geramifard, Alborz},
-  journal={arXiv preprint arXiv:2006.01460},
-  year={2020}
-}
-```
-**NOTE**: The [paper][simmc_arxiv] reports the results from an earlier version of the dataset and with different train-dev-test splits, hence the baseline performances on the challenge resources will be slightly different.
+- Python 3.6+
+- PyTorch 1.5+
+- Transformers 2.8.0 (important!)
 
-
-## Installation (Same across all sub-tasks)
-
-* Git clone the repository:
-```
-$ git lfs install
-$ git clone https://github.com/facebookresearch/simmc.git
-```
-
-* Install the required Python packages:
-  * [Python 3.6+](https://www.python.org/downloads/)
-  * [PyTorch 1.5+](https://pytorch.org/get-started/locally/#start-locally)
-  * [Transformers](https://huggingface.co/transformers/installation.html)
-
-**NOTE**: We recommend installation in a virtual environment ([user guide](https://packaging.python.org/guides/installing-using-pip-and-virtual-environments/)). Create a new virtual environment and activate it prior to installing the packages.
-
-
-## Run Baselines
-
-### Baseline: GPT-2 Based DST
+# Task3 and Task2
 
 1. **Preprocess** the datasets to reformat the data for GPT-2 input.
 
+You should run the Task1 prepocessing before you start. 
 ```
-$ cd mm_dst
+$ cd mm_action_prediction/
+$ ./scripts/preprocess_simmc.sh
+```
+
+Preprocess for task3
+```
+$ cd ../mm_dst
 $ ./run_preprocess_gpt2.sh
-```
-
-The shell script above repeats the following for all {train|dev|devtest} splits and both {furniture|fashion} domains.
-
-```
-$ python -m gpt2_dst.scripts.preprocess_input \
-    --input_path_json={path_dir}/data/simmc-fashion/fashion_train_dials.json \
-    --output_path_predict={path_dir}/mm_dst/gpt2_dst/data/fashion/fashion_train_dials_predict.txt \
-    --output_path_target={path_dir}/mm_dst/gpt2_dst/data/fashion/fashion_train_dials_target.txt \
-    --output_path_special_tokens={path_dir}/mm_dst/gpt2_dst/data/fashion/special_tokens.json
-    --len_context=2 \
-    --use_multimodal_contexts=1 \
 ```
 
 2. **Train** the baseline model
 
 ```
-$ ./run_train_gpt2.sh
+$ ./run_train_gpt2.sh [KEYWORD] [GPU_ID]
 ```
 
 The shell script above repeats the following for both {furniture|fashion} domains.
 
-```
-$ python -m gpt2_dst.scripts.run_language_modeling \
-    --output_dir={path_dir}/save/fashion \
-    --model_type=gpt2 \
-    --model_name_or_path=gpt2 \
-    --line_by_line \
-    --add_special_tokens={path_dir}/mm_dst/gpt2_dst/data/fashion/special_tokens.json \
-    --do_train \
-    --train_data_file={path_dir}/mm_dst/gpt2_dst/data/fashion/fashion_train_dials_target.txt \
-    --do_eval \
-    --eval_data_file={path_dir}/mm_dst/gpt2_dst/data/fashion/fashion_dev_dials_target.txt \
-    --num_train_epochs=1 \
-    --overwrite_output_dir \
-    --per_gpu_train_batch_size=4 \
-    --per_gpu_eval_batch_size=4 \
-    #--no_cuda
+IMPORTANT **You must train multiple models to do ensemble generation**
+
+3. **Generate** ensembled prediction for `devtest|teststd` data
 
 ```
-
-3. **Generate** prediction for `devtest` data
-
+pip uninstall transformers
+pip install transformers -t transformers
+mv transformers transformers_package
+mv transformers_package/transformers transformers
+cp modeling_utils.py transformers/
 ```
-$ ./run_generate_gpt2.sh
+And add model [KEYWORDS] to generate in the following shell script 
 ```
-
-The shell script above repeats the following for both {furniture|fashion} domains.
-```
-$ python -m gpt2_dst.scripts.run_generation \
-    --model_type=gpt2 \
-    --model_name_or_path={path_dir}/mm_dst/gpt2_dst/save/furniture/ \
-    --num_return_sequences=1 \
-    --length=100 \
-    --stop_token='<EOS>' \
-    --prompts_from_file={path_dir}/mm_dst/gpt2_dst/data/furniture/furniture_devtest_dials_predict.txt \
-    --path_output={path_dir}/mm_dst/gpt2_dst/results/furniture/furniture_devtest_dials_predicted.txt
+$ ./run_generate_using_ensemble.sh [GPU_ID]
 ```
 
-Here is an example output:
-```
-System : Yes, here's another one you might like. User : Oh yeah I think my niece would really like that. Does it come in any other colors?  System : I'm sorry I don't have that information. User : Ah well. I like this color. I'd like to go ahead and buy it. Can you add it to my cart please?  => Belief State :
- DA:INFORM:PREFER:JACKET  [ fashion-O_2  = obj ] DA:REQUEST:ADD_TO_CART:JACKET  [ fashion-O_2  = obj ] <EOB>  Of course, you now have this
-```
-
-The generation results are saved in the `/mm_dst/results` folder. Change the `path_output` to a desired path accordingly.
-
-
-4. **Evaluate** predictions for `devtest` data
+4. **Postprocess** predictions for `devtest|teststd` data
 
 ```
-$ ./run_evaluate_gpt2.sh
+# For devtest set
+$ ./run_postprocess_devtest_gpt2.sh
+
+# For teststd set
+$ ./run_postprocess_teststd_gpt2.sh
 ```
 
-The shell script above repeats the following for both {furniture|fashion} domains.
-```
-python -m gpt2_dst.scripts.evaluate \
-    --input_path_target={path_dir}/mm_dst/gpt2_dst/data/furniture/furniture_devtest_dials_target.txt \
-    --input_path_predicted={path_dir}/mm_dst/gpt2_dst/results/furniture/furniture_devtest_dials_predicted.txt \
-    --output_path_report={path_dir}/mm_dst/gpt2_dst/results/furniture/furniture_devtest_dials_report.json
+Done! 
+You can now evaluate Task3 and Task2 With generated files in the following directories
 
 ```
+# For devtest set
+$ simmc/mm_dst/results/furniture/ensemble_devtest/
+$ simmc/mm_dst/results/fashion/ensemble_devtest/
 
-Evaluation reports are saved in the `/mm_dst/results` folder as JSON files.
+# For teststd set
+$ simmc/mm_dst/results/furniture/ensemble/
+$ simmc/mm_dst/results/fashion/ensemble/
+```
 
-*Important*: For any of the models you build, please make sure that you use the function `simmc.mm_dst.utils.evaluate_dst.evaluate_from_flat_list` to obtain the evaluation reports.
+5. Summary of the evaluation results for the devtest set
+*Results of the Task3 and Task2 are generated End-to-End by the same model.*
 
-Please also note that the GPT2 fine-tuning is highly sensitive to the batch size (which `n_gpu` of your machine may affect), hence it may need some hyperparameter tuning to obtain the best results (and avoid over/under fitting). Please feel free to change the hyperparameter of the default settings (provided) to compare results.
-
-Below is the summary of the [published models](https://github.com/facebookresearch/simmc/releases/download/1.0/mm_dst_gpt2_baselines.tar.gz) we provide:
-
-| Baseline | Dialog Act F1 | Slot F1 |
+**Task3**
+| Domain | Dialog Act F1 | Slot F1 |
 |--------|-------|-------|
-| GPT2 - Furniture (text-only) | 69.9 | 52.5 |
-| GPT2 - Furniture (multimodal) | 69.5 | 63.9 |
-| GPT2 - Fashion (text-only) | 61.2 | 52.1 |
-| GPT2 - Fashion (multimodal) | 61.1 | 60.6 |
+| Furniture (multimodal) | 83.47 | 80.28 |
+| Fashion (multimodal) | 75.12 | 75.21 |
 
-## Rules for Sub-task #3 Submissions
-* Disallowed input per each turn: `belief_state`, `system_transcript`, `system_transcript_annotated`, `state_graph_1`, `state_graph_2`, and anything from future turns.
-* If you would like to use any other external resources, please consult with the track organizers (simmc@fb.com). Generally, we allow the use of publicly available pre-trained language models, such as BERT, GPT-2, etc.
+**Task2**
+| Domain  |     BLEU-4     | R@1 | R@5 | R@10 | Mean Rank | MRR |
+|----------| :-------------: | :------: | :------: | :------: | :------: |:------: |        
+| Furniture | 0.111 | 26.0 | 49.6 | 61.2 | 15.9 | 0.376 |
+| Fashion   | 0.135 | 24.8 | 49.9 | 63.5 | 15.0 | 0.373 |
 
-[dstc9]:https://sites.google.com/dstc.community/dstc9/home
-[simmc_arxiv]:https://arxiv.org/abs/2006.01460
+
+# Task1
+
+1. **Preprocess** 
+You should run the Task1 prepocess before you start. 
+
+```
+$ cd ../mm_action_prediction
+$ ./scripts/preprocess_simmc.sh
+```
+
+The data for task1 is provided in the data file, but if you need to run from scratch, run below
+
+```
+$ ./run_preprocess_task1.sh
+```
+
+2. **Train** the baseline model
+
+```
+$ ./run_train_task1.sh [KEYWORD] [GPU_ID]
+```
+The shell script above repeats training for both {furniture|fashion} domains.
+You shoud train multiple models for ensemble
+
+3. **Ensemble Generate** ensembled prediction for `devtest|teststd` data
+
+```
+pip uninstall transformers
+pip install transformers -t transformers
+mv transformers transformers_package
+mv transformers_package/transformers transformers
+cp modeling_utils.py transformers/
+
+$ ./run_generate_using_ensemble_task1.sh [GPU_ID]
+```
+
+The generation results are saved in the `/mm_dst/results/task1` folder. Change the `path_output` to a desired path accordingly.
+
+
+4. **Postprocess** predictions for `devtest|teststd` data
+
+```
+# For devtest set
+$ ./run_postprocess_devtest_task1.sh
+
+# For teststd set
+$ ./run_postprocess_teststd_task1.sh
+```
+Done! You can now evaluate Task1 With generated files in the following directory
+
+```
+# For devtest set
+$ simmc/mm_dst/results/task1/furniture/ensemble_devtest/
+$ simmc/mm_dst/results/task1/fashion/ensemble_devtest/
+
+# For teststd set
+$ simmc/mm_dst/results/task1/furniture/ensemble/
+$ simmc/mm_dst/results/task1/fashion/ensemble/
+```
+
+5. Summary of the evaluation results for the devtest set
+**Task1**
+| Domain | Action Accuracy | Attribute Accuracy | Action Perplexity |
+|--------|-------|-------|-------|
+| Furniture (multimodal) | 79.40 | 68.95 | 0(not available) |
+| Fashion (multimodal) | 85.62 | 80.64 | 0(not available) |
+
+**### Notes
+The model for task1 also generates prediction of task2 and task3. We evaluated the accuracy of all three tasks but didn't provided the result here to prevent confusion with the score we are submitting. If you need the full evaluation results of Multi-tasking(task1~3) model, please contact us via email (hoon2j@gmail.com).

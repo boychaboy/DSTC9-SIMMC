@@ -4,7 +4,8 @@ mm_dst/runs/
 mm_dst/gpt2_dst/save/
 data/simmc_furniture/
 data/simmc_fashion/
-
+./data/simmc_fashion/
+./data/simmc_furniture/
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]
