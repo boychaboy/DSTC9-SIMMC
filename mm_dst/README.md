@@ -159,5 +159,5 @@ $ simmc/mm_dst/results/task1/fashion/ensemble/
 | Furniture (multimodal) | 79.40 | 68.95 | 0(not available) |
 | Fashion (multimodal) | 85.62 | 80.64 | 0(not available) |
 
-**### Notes
+### Notes
 The model for task1 also generates prediction of task2 and task3. We evaluated the accuracy of all three tasks but didn't provided the result here to prevent confusion with the score we are submitting. If you need the full evaluation results of Multi-tasking(task1~3) model, please contact us via email (hoon2j@gmail.com).
