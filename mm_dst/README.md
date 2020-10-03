@@ -150,7 +150,8 @@ $ simmc/mm_dst/results/task1/furniture/ensemble/
 $ simmc/mm_dst/results/task1/fashion/ensemble/
 ```
 
-5. Summary of the evaluation results for the devtest set
+5. Summary of the evaluation results for the devtest set 
+
 **Task1**
 
 | Domain | Action Accuracy | Attribute Accuracy | Action Perplexity |
