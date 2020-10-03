@@ -73,7 +73,7 @@ $ simmc/mm_dst/results/furniture/ensemble/
 $ simmc/mm_dst/results/fashion/ensemble/
 ```
 
-5. Summary of the evaluation results for the devtest set 
+5. Summary of the evaluation results for the `devtest set` 
 
 *Results of the Task3 and Task2 are generated End-to-End by the same model.*
 
@@ -150,7 +150,7 @@ $ simmc/mm_dst/results/task1/furniture/ensemble/
 $ simmc/mm_dst/results/task1/fashion/ensemble/
 ```
 
-5. Summary of the evaluation results for the devtest set 
+5. Summary of the evaluation results for the `devtest set` 
 
 **Task1** 
 
