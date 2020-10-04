@@ -83,14 +83,14 @@ $ simmc/mm_dst/results/fashion/ensemble/
 | Furniture (multimodal) | 83.47 | 80.28 |
 | Fashion (multimodal) | 75.12 | 75.21 |
 
-**Task2** 
-*without single round evaluation* 
+**Task2**  
+*without single round evaluation*  
 | Domain  |     BLEU-4     | R@1 | R@5 | R@10 | Mean Rank | MRR |
 |----------| :-------------: | :------: | :------: | :------: | :------: |:------: |        
 | Furniture | 0.111 | 26.0 | 49.6 | 61.2 | 15.9 | 0.376 |
 | Fashion   | 0.135 | 24.8 | 49.9 | 63.5 | 15.0 | 0.373 |
 
-*single round evaluation*
+*single round evaluation* 
 | Domain  |     BLEU-4     | R@1 | R@5 | R@10 | Mean Rank | MRR |
 |----------| :-------------: | :------: | :------: | :------: | :------: |:------: |        
 | Furniture | 0.160 | 30.8 | 61.1 | 72.6 | 12.3 | 0.440 |
