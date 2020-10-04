@@ -89,7 +89,7 @@ $ simmc/mm_dst/results/fashion/ensemble/
 |----------| :-------------: | :------: | :------: | :------: | :------: |:------: |        
 | Furniture | 0.111 | 26.0 | 49.6 | 61.2 | 15.9 | 0.376 |
 | Fashion   | 0.135 | 24.8 | 49.9 | 63.5 | 15.0 | 0.373 |
-
+  
 *single round evaluation* 
 | Domain  |     BLEU-4     | R@1 | R@5 | R@10 | Mean Rank | MRR |
 |----------| :-------------: | :------: | :------: | :------: | :------: |:------: |        
@@ -159,20 +159,20 @@ $ simmc/mm_dst/results/task1/fashion/ensemble/
 
 5. Summary of the evaluation results for the `devtest set` 
 
-**Task1** 
-*without single round evaluation* 
+**Task1**  
+Since it was not possible to measure the "Action perplexity" with our model, the log probability was all set to zero.  
+*without single round evaluation*  
 | Domain | Action Accuracy | Attribute Accuracy | Action Perplexity |
 |--------|-------|-------|-------|
 | Furniture (multimodal) | 79.40 | 68.95 | 1.0(not available) |
 | Fashion (multimodal) | 85.62 | 80.64 | 1.0(not available) |
-
-*single round evaluation* 
+   
+*single round evaluation*  
 | Domain | Action Accuracy | Attribute Accuracy | Action Perplexity |
 |--------|-------|-------|-------|
 | Furniture (multimodal) | 93.96 | 54.55 | 1.0(not available) |
 | Fashion (multimodal) | 97.25 | 33.33 | 1.0(not available) |
 
-Since it was not possible to measure the "Action perplexity" with our model, the log probability was all set to zero. 
 
 ### Notes
 The model for task1 also generates prediction of task2 and task3. We evaluated the accuracy of all three tasks but didn't provided the result here to prevent confusion with the score we are submitting. If you need the full evaluation results of Multi-tasking(task1~3) model, please contact us via email (hoon2j@gmail.com).
