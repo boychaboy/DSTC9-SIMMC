@@ -208,4 +208,5 @@ Since it was not possible to measure the "Action perplexity" with our model, the
 
 
 ### Notes
-The model for task1 also generates prediction of task2 and task3. We evaluated the accuracy of all three tasks but didn't provided the result here to prevent confusion with the score we are submitting. If you need the full evaluation results of Multi-tasking(task1~3) model, please contact us via email (hoon2j@gmail.com).
+- The model for task1 also generates prediction of task2 and task3. We evaluated the accuracy of all three tasks but didn't provided the result here to prevent confusion with the score we are submitting. If you need the full evaluation results of Multi-tasking(task1~3) model, please contact us via email (hoon2j@gmail.com).
+- If you need model parameters(trained before Sep 28th), please also contact us via email (hoon2j@gmail.com)
