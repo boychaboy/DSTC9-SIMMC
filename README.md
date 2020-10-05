@@ -1,6 +1,6 @@
 # Situated Interactive MultiModal Conversations (SIMMC) Challenge 2020
 
-## Summary of our model
+## Brief summary
 ### Multi-task model with Finetuning End-to-End GPT-2
 We have built a GPT-2 model that (1) predicts belief state, (2) Generates assistant’s response, and (3) Predicts API with end-to-end training method. In general, our model is a multi-task model that can do all three subtasks required with competitive performances. We accomplished this by making three modifications from the baseline model.
 1. We preprocessed api and attributes for each turn and added them to the end of every lines of GPT-2 input so that the model can learn which apis and attributes are needed in which circumstances and contexts.
@@ -31,8 +31,10 @@ We have built a GPT-2 model that (1) predicts belief state, (2) Generates assist
 ### Teststd outputs
 You can evaluate them in `outputs/` directory
 
+  
+  
 
-## Running Model
+## Running our model
 ### Installation
 Install the required Python packages:
 - Python 3.6+
