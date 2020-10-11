@@ -71,7 +71,7 @@ The shell script above repeats the following for both {furniture|fashion} domain
 
 ```
 $ pip uninstall transformers
-$ pip install transformers -t transformers
+$ pip install transformers==2.8.0 -t transformers
 $ mv transformers transformers_package
 $ mv transformers_package/transformers transformers
 $ cp modeling_utils.py transformers/
@@ -157,7 +157,7 @@ You shoud train multiple models for ensemble
 
 ```
 $ pip uninstall transformers
-$ pip install transformers -t transformers
+$ pip install transformers==2.8.0 -t transformers
 $ mv transformers transformers_package
 $ mv transformers_package/transformers transformers
 $ cp modeling_utils.py transformers/
