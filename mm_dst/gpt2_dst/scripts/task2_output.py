@@ -96,8 +96,8 @@ if __name__ == "__main__":
 
     predicted = open(args.path + args.domain+ '_' + args.data + '_dials_predicted.txt', 'r')
     predicted.seek(0)
-    predicted_processed_generation = open(args.path + "dstc9-simmc-teststd-" + args.domain + "-subtask-2-generation.json", 'w')
-    predicted_processed_retrieval = open(args.path + "dstc9-simmc-teststd-" + args.domain + "-subtask-2-retrieval.json", 'w')
+    predicted_processed_generation = open(args.path + "dstc9-simmc-" + args.data + "-" + args.domain + "-subtask-2-generation.json", 'w')
+    predicted_processed_retrieval = open(args.path + "dstc9-simmc-" + args.data + "-" + args.domain + "-subtask-2-retrieval.json", 'w')
     dials_path = args.dials_path
     domain = args.domain 
     retrieval_candidate= args.retrieval_candidate_path
