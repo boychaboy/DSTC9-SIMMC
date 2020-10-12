@@ -12,8 +12,17 @@ We have built a GPT-2 model that (1) predicts belief state, (2) Generates assist
 
 ## Devtest Results
 We submit 3 different ensembled model predictions.  
-Each model is trained differently in **size of pretrianed models** or **amount of data used while training**.  
-Three ensembled models are different compositions of these models. We used three types of pretrianed models { gpt2-small | gpt2-medium | gpt2-large } along with two different amount of data while training { train | train+dev }.
+Each single model is trained different with **size of pretrianed models** or **the amount of data used while training**.  
+Three submitted models(ensemble1,2,3) are different compositions of following single models.  
+
+Three different single models are used in ensemble for Task2 & Task3 :
+- gpt2-large(train+dev)
+- gpt2-large(train)
+- gpt2-small(train+dev)
+
+Two different single models are used in ensemble for Task1 :
+- gpt2-medium(train+dev)
+- gpt2-small(train+dev)
 
 ### Task2 & Task3
 **1. Ensemble1**  
@@ -79,8 +88,13 @@ Ensemble3 : `$ simmc/mm_dst/gpt2_dst/results/{furniture|fashion}/ensemble3`
 `$ simmc/mm_dst/gpt2_dst/results/task1/{furniture|fashion}/ensemble`  
 
 ***All {devtest|teststd} results can be also found in `outputs/` directory for your convenience.***
+Ensemble1 : `$ outputs/ensemble`
+Ensemble2 : `$ outputs/ensemble2`
+Ensemble3 : `$ outputs/ensemble3`
+task1-ensemble : `$ outputs/task1`  
 
   
+   
    
 ## Running model
 ### Installation
