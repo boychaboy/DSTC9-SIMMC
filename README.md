@@ -87,10 +87,10 @@ Ensemble3 : `$ simmc/mm_dst/gpt2_dst/results/{furniture|fashion}/ensemble3`
 ### Task1  
 `$ simmc/mm_dst/gpt2_dst/results/task1/{furniture|fashion}/ensemble`  
 
-***All {devtest|teststd} results can be also found in `outputs/` directory for your convenience.***
-Ensemble1 : `$ outputs/ensemble`
-Ensemble2 : `$ outputs/ensemble2`
-Ensemble3 : `$ outputs/ensemble3`
+**All {devtest|teststd} results are also saved in `outputs/` directory for your convenience.**  
+Ensemble1 : `$ outputs/ensemble`  
+Ensemble2 : `$ outputs/ensemble2`  
+Ensemble3 : `$ outputs/ensemble3`  
 task1-ensemble : `$ outputs/task1`  
 
   
