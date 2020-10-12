@@ -73,7 +73,8 @@ $ simmc/mm_dst/results/furniture/ensemble/
 $ simmc/mm_dst/results/fashion/ensemble/
 ```
 
-5. Summary of the evaluation results for the devtest set
+5. Summary of the evaluation results for the devtest set 
+
 *Results of the Task3 and Task2 are generated End-to-End by the same model.*
 
 **Task3**
@@ -149,12 +150,14 @@ $ simmc/mm_dst/results/task1/furniture/ensemble/
 $ simmc/mm_dst/results/task1/fashion/ensemble/
 ```
 
-5. Summary of the evaluation results for the devtest set
+5. Summary of the evaluation results for the devtest set 
+
 **Task1**
+
 | Domain | Action Accuracy | Attribute Accuracy | Action Perplexity |
 |--------|-------|-------|-------|
 | Furniture (multimodal) | 79.40 | 68.95 | 0(not available) |
 | Fashion (multimodal) | 85.62 | 80.64 | 0(not available) |
 
-**### Notes
+### Notes
 The model for task1 also generates prediction of task2 and task3. We evaluated the accuracy of all three tasks but didn't provided the result here to prevent confusion with the score we are submitting. If you need the full evaluation results of Multi-tasking(task1~3) model, please contact us via email (hoon2j@gmail.com).
