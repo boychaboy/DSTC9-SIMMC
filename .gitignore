@@ -6,6 +6,9 @@ data/simmc_furniture/
 data/simmc_fashion/
 ./data/simmc_fashion/
 ./data/simmc_furniture/
+*.sh
+mm_dst/*.sh
+
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]

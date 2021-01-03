@@ -21,6 +21,7 @@ fi
 
 PATH_DIR=$(realpath .)
 
+'
 # Train (furniture, multi-modal)
 python -m gpt2_dst.scripts.run_language_modeling \
     --output_dir="${PATH_DIR}"/gpt2_dst/save/furniture/"${KEYWORD}" \
@@ -41,7 +42,7 @@ python -m gpt2_dst.scripts.run_language_modeling \
     --per_gpu_eval_batch_size=$VAL_BATCH
 
 echo "Train Complete! Model saved in gpt2_dst/save/furniture/$KEYWORD"
-
+'
 # Train (Fashion, multi-modal)
 python -m gpt2_dst.scripts.run_language_modeling \
     --output_dir="${PATH_DIR}"/gpt2_dst/save/fashion/"${KEYWORD}" \
