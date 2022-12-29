@@ -1,5 +1,10 @@
-# Situated Interactive MultiModal Conversations (SIMMC) Challenge 2020
-Codes submitted for SIMMC challenge (https://github.com/facebookresearch/simmc), Track 4 of DSTC 9 (https://dstc9.dstc.community/home)
+# Situated Interactive MultiModal Conversations (SIMMC) 
+Repository for *AAAI 2020* paper, [TOM: End-to-End Task-Oriented Multimodal Dialog System with GPT-2](https://drive.google.com/file/d/1_-F_7mGcmmIm7S5IyH-puVZM5uelp7nu/view)
+- Authors: **Younghoon Jeong**, Se Jin Lee, Youngjoong Ko, Jungyun Seo  
+- Winner of The Ninth Dialog System Technology Challenge ([DSTC9](https://dstc9.dstc.community/home)), Track 4: Situated Interactive MultiModal Conversations ([SIMMC](https://github.com/facebookresearch/simmc))
+- Team 3 in [Final results announced](https://github.com/facebookresearch/simmc/blob/main/DSTC9_SIMMC_RESULTS.md)
+
+<img width="904" alt="simmc_dstc9_results_summary" src="https://user-images.githubusercontent.com/48426904/209917256-294c8da5-7cdb-4fe4-a367-9809df96fab2.png">
 
 ## Brief summary
 ### Multi-task model with Finetuning End-to-End GPT-2
